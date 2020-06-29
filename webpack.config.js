@@ -11,6 +11,11 @@ module.exports = {
     path: path.resolve('./dist'),
     filename: '[name]'
   },
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 8888
+  },
   module: {
     rules: [
       {
@@ -21,8 +26,18 @@ module.exports = {
         }
       },
       {
-        test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        test: /\.s[ac]ss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              // Prefer `dart-sass`
+              implementation: require('sass')
+            }
+          }
+        ]
       }
     ]
   },
