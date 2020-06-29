@@ -1,0 +1,1115 @@
+@import url('https://dxstmhyqfqr1o.cloudfront.net/fonts.css');
+@import 'mixin';
+
+$font-family-default: 'Avenir Next';
+$font-weight-default: 400;
+
+$color-theme-default: #845ef7 !default;
+$color-theme-over: #946eff !default;
+$color-white: #fff;
+
+$ic-back: 'ic-back.png';
+$ic-main-chat: 'ic-main-chat.png';
+$ic-main-close: 'ic-main-close.png';
+$ic-create-active: 'ic-create-active.png';
+$ic-create-hover: 'ic-create-hover.png';
+$ic-profile: 'ic-bot-profile.png';
+$ic-chat-admin: 'ic-bot-profile.png';
+$ic-add-active: 'ic-add-active.png';
+$ic-add-hover: 'ic-add-hover.png';
+$ic-menu-more: 'ic-menu-more.png';
+$ic-file: 'ic-file.png';
+$ic-my-file: 'ic-my-file.png';
+$ic-notification-close: 'ic-notification-close.png';
+
+$login-logo: 'login-logo.png';
+$guide-balloon: 'guide-balloon.png';
+
+@keyframes spinnerAnimation {
+  0%,
+  80%,
+  100% {
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
+  }
+  40% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+body {
+  font-family: $font-family-default;
+  font-weight: $font-weight-default;
+  background: #fff;
+
+  .guide {
+    margin-top: 360px;
+    text-align: center;
+
+    .logo {
+      margin-right: 10px;
+      margin-bottom: 29px;
+      text-align: center;
+
+      img {
+        width: 320px;
+      }
+    }
+    .title {
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1.38;
+      letter-spacing: -0.4px;
+      color: #343840;
+
+      .bold {
+        font-weight: 600;
+      }
+    }
+    .desc {
+      margin-top: 20px;
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 2.07;
+      letter-spacing: -0.2px;
+      color: #646b79;
+    }
+    .arrow {
+      margin-top: 20px;
+    }
+  }
+  .guide-balloon {
+    display: none;
+    position: absolute;
+    right: 4px;
+    bottom: 64px;
+    width: 340px;
+    height: 195px;
+    color: #fff;
+    text-align: center;
+    @include icon($guide-balloon, 340px 195px);
+
+    .emoji {
+      font-size: 40px;
+      margin: 45px 0 8px 0;
+    }
+    .desc {
+      font-size: 14px;
+      line-height: 1.36;
+      letter-spacing: -0.2px;
+      margin: 0 28px;
+    }
+  }
+
+  .-sbd-widget {
+    z-index: 99999;
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    -webkit-font-smoothing: antialiased;
+
+    .-sbd-action-button {
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      background-color: $color-theme-default;
+      @include border-radius(50%);
+      @include icon($ic-main-chat, 32px 32px);
+      @include box-shadow(0 2px 32px 0 rgba(0, 0, 0, 0.15), 0 1px 6px 0 rgba(0, 0, 0, 0.09));
+      @include hover {
+        @include box-shadow(0 6px 25px 0 rgba(0, 0, 0, 0.25), 0 2px 5px 0 rgba(0, 0, 0, 0.3));
+      }
+      &.is-active {
+        background-color: $color-theme-default;
+        @include icon($ic-main-close, 14px 14px);
+        @include box-shadow(20px 20px 200px 200px rgba(0, 0, 0, 0.09));
+      }
+    }
+    .-sbd-notification {
+      position: absolute;
+      right: 0;
+      bottom: 75px;
+      width: 370px;
+      background: transparent;
+      text-align: right;
+      overflow: visible;
+      cursor: pointer;
+
+      transform: translateY(20px);
+      transition: all 200ms;
+      opacity: 0;
+      visibility: hidden;
+
+      &.fade-in {
+        display: block;
+        visibility: visible;
+        transform: translateY(0px);
+        transition: all 200ms;
+        opacity: 1;
+      }
+
+      .profile {
+        display: inline-block;
+        position: relative;
+        width: 36px;
+        height: 36px;
+        margin-right: 15px;
+        overflow: hidden;
+        vertical-align: bottom;
+        @include border-radius(50%);
+        @include icon($ic-profile, 36px 36px);
+        @include box-shadow(0 2px 24px 0 rgba(0, 0, 0, 0.3));
+
+        .image {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .content {
+        display: inline-block;
+        position: relative;
+        width: 240px;
+        padding: 15px 20px;
+        background: $color-white;
+        text-align: left;
+        vertical-align: bottom;
+        @include border-radius(6px);
+        @include box-shadow(0 2px 24px 0 rgba(0, 0, 0, 0.3));
+
+        .name {
+          font-size: 14px;
+          color: #aab0bd;
+        }
+        .text {
+          font-size: 14px;
+          color: #343840;
+          line-height: 1.36;
+          margin-top: 15px;
+          overflow: hidden;
+        }
+        .close {
+          position: absolute;
+          right: 6px;
+          top: 10px;
+          width: 24px;
+          height: 24px;
+          cursor: pointer;
+          @include icon($ic-notification-close, 24px 24px);
+          @include border-radius(2px);
+          @include hover-focus {
+            background-color: #f1f2f5;
+          }
+        }
+      }
+    }
+    .-sbd-panel {
+      width: 370px;
+      height: 590px;
+      position: absolute;
+      right: 0;
+      bottom: 75px;
+      background: transparent;
+      overflow: hidden;
+      @include border-radius(8px);
+
+      transform: translateY(20px);
+      transition: all 200ms;
+      opacity: 0;
+      visibility: hidden;
+
+      &.fade-in {
+        display: block;
+        visibility: visible;
+        transform: translateY(0px);
+        transition: all 200ms;
+        opacity: 1;
+        background: $color-white;
+        @include box-shadow(0 5px 40px 0 rgba(0, 0, 0, 0.15));
+      }
+
+      .-sbd-header {
+        position: relative;
+        width: 100%;
+        height: 84px;
+        color: $color-white;
+        background: $color-theme-default;
+        overflow: visible;
+
+        .-sbd-title {
+          display: inline-block;
+          position: absolute;
+          left: 24px;
+          bottom: 10px;
+          text-align: center;
+          font-size: 28px;
+          font-weight: 600;
+          letter-spacing: -0.8px;
+        }
+
+        .-sbd-tabs {
+          position: absolute;
+          width: 120px;
+          left: 125px;
+          bottom: 1px;
+          font-size: 12px;
+          font-weight: 600;
+
+          .-sbd-tab-item {
+            float: left;
+            width: 50%;
+            padding: 8px 0 10px 0;
+            margin: 0;
+            text-align: center;
+            cursor: pointer;
+          }
+          .-sbd-tab-bar {
+            position: absolute;
+            bottom: 0;
+            width: 50%;
+            left: 0;
+            height: 3px;
+            background: #fff;
+            transition: left 300ms;
+          }
+        }
+
+        .-sbd-menu {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          width: 24px;
+          height: 24px;
+          border-radius: 3px;
+          text-align: center;
+          background: transparent;
+          text-align: center;
+
+          @include hover {
+            cursor: pointer;
+            background: #5d44ce;
+          }
+          .icon {
+            display: inline-block;
+            width: 18px;
+            height: 4px;
+            margin-top: 3px;
+            @include icon($ic-menu-more, 18px 4px);
+          }
+        }
+        .-sbd-menu-list {
+          position: absolute;
+          top: 40px;
+          right: 12px;
+          border-radius: 3px;
+          z-index: 1024;
+          @include box-shadow(0 1px 1px 0 rgba(0, 0, 0, 0.3));
+
+          transform: translateY(0px);
+          transition: all 200ms;
+          opacity: 0;
+          visibility: hidden;
+
+          &.fade-in {
+            display: block;
+            visibility: visible;
+            opacity: 1;
+            background: $color-white;
+          }
+          .-sbd-menu-item {
+            font-size: 13px;
+            color: #343840;
+            padding: 10px 18px;
+
+            @include hover {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+      .-sbd-ticket-list {
+        position: relative;
+        width: 100%;
+        height: 506px;
+        background: $color-white;
+        overflow: auto;
+
+        .-sbd-ticket-new {
+          padding: 20px;
+          background: $color-white;
+          border-bottom: 1px #eee solid;
+          cursor: pointer;
+
+          .icon {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            margin-right: 15px;
+            vertical-align: middle;
+            @include icon($ic-create-active, 36px 36px);
+          }
+          .label {
+            display: inline-block;
+            color: #9da3ae;
+            font-size: 15px;
+            font-weight: 500;
+            vertical-align: middle;
+          }
+
+          @include hover {
+            .icon {
+              @include icon($ic-create-hover, 36px 36px);
+            }
+            .label {
+              color: $color-theme-default;
+              font-weight: 600;
+              text-decoration: underline;
+            }
+          }
+        }
+        .-sbd-ticket-item {
+          position: relative;
+          padding: 20px;
+          background: $color-white;
+          border-bottom: 1px #eee solid;
+          cursor: pointer;
+
+          .profile {
+            display: inline-block;
+            position: relative;
+            width: 36px;
+            height: 36px;
+            margin-right: 15px;
+            overflow: visible;
+            vertical-align: middle;
+            @include icon($ic-profile, 36px 36px);
+
+            .image {
+              width: 100%;
+              height: 100%;
+              @include border-radius(50%);
+            }
+            .badge {
+              position: absolute;
+              right: -3px;
+              top: -3px;
+              min-width: 10px;
+              height: 10px;
+              font-size: 0.8em;
+              background: $color-theme-default;
+              color: $color-white;
+              padding: 3px;
+              text-align: center;
+              line-height: 10px;
+              @include border-radius(50%);
+            }
+          }
+          .content {
+            display: inline-block;
+            width: 200px;
+            vertical-align: middle;
+            .name {
+              width: 100%;
+              font-size: 14px;
+              font-weight: 500;
+              color: #aab0bd;
+              margin-bottom: 3px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+            .last {
+              width: 100%;
+              font-size: 14px;
+              color: #343840;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+          }
+          .updated-at {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            height: 36px;
+            line-height: 36px;
+            font-size: 12px;
+            color: #999;
+            display: inline-block;
+            vertical-align: middle;
+          }
+
+          @include hover {
+            background: #f1f2f6;
+          }
+        }
+      }
+
+      .-sbd-error {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 8px 12px;
+        font-size: 1em;
+        color: $color-white;
+        background: rgba(33, 33, 33, 0.8);
+        text-align: center;
+        z-index: 1;
+        display: none;
+      }
+
+      .-sbd-dialog {
+        position: absolute;
+        left: 100%;
+        top: 0;
+        width: 370px;
+        height: 590px;
+        background: $color-white;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(100%);
+        transition: all 500ms;
+        overflow: hidden;
+
+        &.opened {
+          display: block;
+          left: 0;
+          opacity: 1;
+          visibility: visible;
+          transform: translateX(0);
+          transition: all 500ms;
+        }
+
+        .-sbd-dialog-header {
+          position: relative;
+          width: 100%;
+          height: 84px;
+          color: $color-white;
+          background: $color-theme-default;
+
+          .close {
+            position: absolute;
+            left: 20px;
+            top: 30px;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            @include icon($ic-back, 15px 11px);
+            @include border-radius(2px);
+            @include hover-focus {
+              background-color: #5d44ce;
+            }
+          }
+          .agent {
+            width: 100%;
+            text-align: center;
+
+            .profile {
+              display: inline-block;
+              width: 40px;
+              height: 40px;
+              margin-top: 12px;
+              @include icon($ic-profile, 40px 40px);
+
+              .image {
+                width: 100%;
+                height: 100%;
+                @include border-radius(50%);
+              }
+            }
+            .name {
+              font-size: 13px;
+              color: $color-white;
+            }
+          }
+        }
+        .-sbd-message-list {
+          position: relative;
+          height: 438px;
+          background: $color-white;
+          padding-bottom: 10px;
+          overflow: auto;
+
+          .-sbd-message-item {
+            padding: 10px 20px 0 20px;
+
+            &.-sbd-my-message {
+              text-align: right;
+              .profile {
+                display: none !important;
+              }
+              .preview {
+                background: $color-theme-default !important;
+                color: #fff !important;
+                .description {
+                  color: #fff !important;
+                }
+              }
+              .message {
+                background: $color-theme-default !important;
+                color: #fff !important;
+                a {
+                  color: #fff !important;
+                }
+              }
+            }
+            &.-sbd-admin-message {
+              .profile {
+                @include icon($ic-chat-admin, 36px 36px);
+                background-color: #aab;
+                .image {
+                  display: none;
+                }
+              }
+            }
+            .profile {
+              position: relative;
+              display: inline-block;
+              width: 36px;
+              height: 36px;
+              margin: 5px 10px 0 0;
+              vertical-align: top;
+              overflow: hidden;
+              @include border-radius(50%);
+              @include icon($ic-profile, 36px 36px);
+
+              .image {
+                width: 100%;
+                height: 100%;
+              }
+            }
+            .content {
+              position: relative;
+              display: inline-block;
+              vertical-align: middle;
+
+              .image {
+                width: 260px;
+                @include border-radius(6px);
+              }
+              .video {
+                width: 260px;
+                height: 220px;
+                @include border-radius(6px);
+              }
+              .preview {
+                width: 260px;
+                margin-bottom: 10px;
+                background: #f1f2f6;
+                text-align: left;
+                overflow: hidden;
+                cursor: pointer;
+                @include border-radius(6px);
+                @include box-shadow(0 2px 2px 0 rgba(0, 0, 0, 0.3));
+
+                .image {
+                  display: block;
+                  width: 100%;
+                  height: 200px;
+                  @include border-radius(0);
+                }
+                .title {
+                  font-size: 14px;
+                  font-weight: 600;
+                  margin: 15px 15px 0 15px;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                }
+                .description {
+                  max-height: 54px;
+                  font-size: 13px;
+                  color: #999;
+                  margin: 4px 15px 15px 15px;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                }
+              }
+              .message {
+                display: inline-block;
+                width: fit-content;
+                max-width: 240px;
+                font-size: 14px;
+                line-height: 1.35;
+                padding: 12px;
+                background: #f1f2f6;
+                text-align: left;
+                @include border-radius(6px);
+
+                .file {
+                  display: none;
+                  width: 25px;
+                  height: 28px;
+                  margin-right: 10px;
+                  vertical-align: middle;
+                  @include icon($ic-file, 25px 28px);
+                }
+                .my-file {
+                  display: none;
+                  width: 25px;
+                  height: 28px;
+                  margin-right: 10px;
+                  vertical-align: middle;
+                  @include icon($ic-my-file, 25px 28px);
+                }
+                .text {
+                  display: inline-block;
+                  vertical-align: middle;
+                  overflow-wrap: break-word;
+                  word-break: break-all;
+                  word-wrap: break-word;
+
+                  &.file-name {
+                    cursor: pointer;
+                    @include hover {
+                      text-decoration: underline;
+                    }
+                  }
+                }
+              }
+              .created-at {
+                font-size: 12px;
+                color: #999;
+                margin: 0 0 4px 6px;
+              }
+            }
+            .confirm-end-of-chat {
+              padding: 20px 40px;
+              border-top: 1px #dee1e6 solid;
+              border-bottom: 1px #dee1e6 solid;
+
+              .message {
+                font-size: 14px;
+                text-align: center;
+                color: #494e57;
+                margin-bottom: 11px;
+              }
+              .confirm {
+                margin-top: 8px;
+                text-align: center;
+
+                .yes {
+                  display: inline-block;
+                  width: 72px;
+                  font-size: 13px;
+                  color: $color-white;
+                  margin: 0 4px;
+                  padding: 8px 0;
+                  background: #82c91e;
+                  text-align: center;
+                  cursor: pointer;
+                  @include border-radius(4px);
+                  @include hover {
+                    background: #92d92e;
+                  }
+                }
+                .no {
+                  display: inline-block;
+                  width: 72px;
+                  font-size: 13px;
+                  color: #878d99;
+                  margin: 0 4px;
+                  padding: 8px 0;
+                  background: #e9ebef;
+                  text-align: center;
+                  cursor: pointer;
+                  @include border-radius(4px);
+                  @include hover {
+                    background: #f9fbff;
+                  }
+                }
+              }
+            }
+            .rating {
+              padding: 16px;
+              text-align: center;
+              border-radius: 8px;
+              background-color: $color-white;
+              box-shadow: 0 1px 5px 0 rgba(33, 34, 66, 0.12), 0 0 1px 0 rgba(33, 34, 66, 0.08),
+                0 2px 1px 0 rgba(33, 34, 66, 0.08);
+
+              .rating-message {
+                display: block;
+                font-size: 14px;
+                font-weight: 500;
+                margin-bottom: 9px;
+              }
+              .rating-item {
+                display: inline-block;
+                width: 24px;
+                height: 24px;
+                margin-left: 2px;
+                margin-right: 2px;
+                background-size: cover;
+                background-image: url('/img/ic-star.png');
+              }
+              .rating-item:hover {
+                cursor: pointer;
+              }
+              .rating-item.selected {
+                background-image: url('/img/ic-star-filled.png');
+              }
+              .rating-form {
+                margin-top: 16px;
+
+                .rating-comment {
+                  display: block;
+                  width: 100%;
+                  font-size: 14px;
+                  border-radius: 4px;
+                  border: solid 1px #c9d0e6;
+                  padding-top: 12px;
+                  padding-bottom: 12px;
+                  padding-left: 16px;
+                  padding-right: 16px;
+                  margin-bottom: 8px;
+                  background-color: $color-white;
+                  resize: none;
+                  box-sizing: border-box;
+                  -moz-box-sizing: border-box;
+                  -webkit-box-sizing: border-box;
+                }
+                .rating-submit {
+                  width: 100%;
+                  display: block;
+                  font-size: 14px;
+                  color: $color-white;
+                  border-radius: 4px;
+                  padding-top: 6px;
+                  padding-bottom: 6px;
+                  background-color: #825eeb;
+                }
+                .rating-submit:hover {
+                  cursor: pointer;
+                  background-color: #845ef7;
+                }
+              }
+            }
+            .rating-result {
+              padding: 16px;
+              text-align: center;
+              border-radius: 8px;
+              background-color: $color-white;
+              box-shadow: 0 1px 5px 0 rgba(33, 34, 66, 0.12), 0 0 1px 0 rgba(33, 34, 66, 0.08),
+                0 2px 1px 0 rgba(33, 34, 66, 0.08);
+              overflow: hidden;
+
+              .rating-message {
+                display: block;
+                font-size: 14px;
+                font-weight: 500;
+                margin-bottom: 4px;
+              }
+              .rating-description {
+                display: block;
+                font-size: 12px;
+                font-weight: 500;
+              }
+              .line {
+                width: 120%;
+                height: 1px;
+                background-color: #eef2fa;
+                margin-left: -16px;
+                margin-right: -16px;
+                margin-top: 16px;
+                margin-bottom: 16px;
+              }
+              .rating-result-score {
+                text-align: left;
+
+                .rating-result-item {
+                  display: inline-block;
+                  width: 12px;
+                  height: 12px;
+                  background-size: cover;
+                  background-image: url('/img/ic-star-result.png');
+                }
+                .rating-result-item.selected {
+                  background-image: url('/img/ic-star-result-filled.png');
+                }
+                .rating-result-number {
+                  display: inline-block;
+                  font-size: 12px;
+                  color: #747aa5;
+                }
+              }
+              .rating-result-comment {
+                font-size: 12px;
+                color: #747aa5;
+                text-align: left;
+                margin-top: 8px;
+              }
+            }
+          }
+        }
+        .-sbd-message-form {
+          position: absolute;
+          width: 100%;
+          height: 58px;
+          bottom: 0;
+          border-top: 1px #ddd solid;
+          background: $color-white;
+
+          &.disabled {
+            background: #f1f2f6;
+            .attach {
+              @include hover-focus {
+                @include icon($ic-add-active, 22px 22px);
+              }
+              &.active {
+                @include icon($ic-add-active, 22px 22px);
+              }
+            }
+          }
+          .message {
+            padding: 18px 62px 17px 20px;
+            width: 290px;
+            font-size: 0.9em;
+            min-height: 25px;
+            max-height: 88px;
+            border: 0;
+            background: transparent;
+
+            @include focus {
+              outline: none;
+              @include box-shadow(0 -20px 50px -10px rgba(0, 0, 0, 0.08));
+              .attach {
+                @include icon($ic-add-hover, 22px 22px);
+              }
+            }
+          }
+          .attach {
+            width: 22px;
+            height: 22px;
+            position: absolute;
+            right: 20px;
+            bottom: 18px;
+            cursor: pointer;
+            @include icon($ic-add-active, 22px 22px);
+            @include hover-focus {
+              @include icon($ic-add-hover, 22px 22px);
+            }
+            &.active {
+              @include icon($ic-add-hover, 22px 22px);
+            }
+          }
+          .file {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  .-sbd-spinner {
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+    background: $color-white;
+    position: absolute;
+    top: 0;
+    border: 8px;
+    z-index: 99999;
+    @include border-bottom-radius(8px);
+
+    .-sbd-spinner-wrapper {
+      margin: 50% 0 0 0;
+      padding: 0;
+      font-size: 100%;
+      line-height: 1;
+      height: auto;
+      box-sizing: initial;
+      width: 100%;
+      text-align: center;
+      -webkit-transform: translate(0, -50%);
+      -moz-transform: translate(0, -50%);
+      -ms-transform: translate(0, -50%);
+      -o-transform: translate(0, -50%);
+      transform: translate(0, -50%);
+
+      div {
+        margin: 0;
+        padding: 0;
+        font-size: 100%;
+        line-height: 1;
+        box-sizing: initial;
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background-color: #bdbdbd;
+        @include border-radius(50%);
+        -webkit-animation: spinnerAnimation 1.4s infinite ease-in-out both;
+        -moz-animation: spinnerAnimation 1.4s infinite ease-in-out both;
+        -o-animation: spinnerAnimation 1.4s infinite ease-in-out both;
+        -ms-animation: spinnerAnimation 1.4s infinite ease-in-out both;
+        animation: spinnerAnimation 1.4s infinite ease-in-out both;
+      }
+      :nth-child(1) {
+        margin: 0;
+        padding: 0;
+        font-size: 100%;
+        line-height: 1;
+        box-sizing: initial;
+        -webkit-animation-delay: -0.32s;
+        -moz-animation-delay: -0.32s;
+        -o-animation-delay: -0.32s;
+        -ms-animation-delay: -0.32s;
+        animation-delay: -0.32s;
+      }
+      :nth-child(2) {
+        padding: 0;
+        font-size: 100%;
+        line-height: 1;
+        box-sizing: initial;
+        margin: 0 6px;
+        -webkit-animation-delay: -0.16s;
+        -moz-animation-delay: -0.16s;
+        -o-animation-delay: -0.16s;
+        -ms-animation-delay: -0.16s;
+        animation-delay: -0.16s;
+      }
+    }
+  }
+  .-sbd-login-background {
+    display: flex;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 0;
+    background: #eceff1;
+    text-align: center;
+    transition: opacity 200ms;
+    z-index: 99999;
+    align-items: center;
+    justify-content: center;
+
+    &.shown {
+      opacity: 1;
+    }
+
+    .-sbd-login {
+      width: 510px;
+      min-width: 240px;
+      padding: 20px 35px;
+      text-align: center;
+
+      .logo {
+        display: inline-block;
+        width: 78px;
+        height: 78px;
+        background-color: #ffffff;
+        line-height: 78px;
+        border-radius: 50%;
+        margin-bottom: 12px;
+        @include icon($login-logo, 60px 60px, 10px 10px);
+      }
+      .title {
+        font-size: 27px;
+        font-weight: normal;
+        line-height: 1.5;
+
+        .bold {
+          font-weight: 600;
+        }
+      }
+      .panel {
+        border-radius: 5px;
+        background-color: #ffffff;
+        box-shadow: 0 20px 18px 0 rgba(0, 0, 0, 0.1);
+        margin: 30px 0;
+        text-align: left;
+
+        .form {
+          padding: 24px 56px;
+
+          .input-label {
+            font-size: 12px;
+            font-weight: 500;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: 0px;
+            color: #292855;
+          }
+          .input {
+            display: block;
+            padding: 6px 12px;
+            width: 366px;
+            font-size: 14px;
+            text-align: left;
+            margin: 5px 0 20px 0;
+            border: 1px #d1d7e0 solid;
+            overflow: hidden;
+
+            @include border-radius(2px);
+            @include focus {
+              outline: none;
+              @include box-shadow(0 -20px 50px -10px rgba(0, 0, 0, 0.08));
+            }
+          }
+          .error {
+            font-size: 0.9em;
+            color: #f34;
+            text-align: center;
+            margin-top: 8px;
+          }
+        }
+        .separator {
+          width: 100%;
+          height: 1px;
+          background-color: #dbe1ea;
+        }
+        .control {
+          position: relative;
+          padding: 15px 56px;
+          text-align: right;
+
+          .advanced {
+            position: absolute;
+            left: 60px;
+            top: 32px;
+
+            .label {
+              font-size: 13px;
+              font-weight: normal;
+              line-height: 1.38;
+              color: #292855;
+              cursor: pointer;
+
+              &.open {
+                text-decoration: underline;
+                font-weight: 600;
+                color: #7756d9;
+              }
+            }
+          }
+          .button {
+            display: inline-block;
+            width: 80px;
+            height: 36px;
+            line-height: 36px;
+            color: #fff;
+            background-color: #1fcc94;
+            text-align: center;
+            cursor: pointer;
+            @include border-radius(2px);
+            @include hover {
+              background: #0fbc84;
+            }
+          }
+        }
+      }
+    }
+  }
+}
