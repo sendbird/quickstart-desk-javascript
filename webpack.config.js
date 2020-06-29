@@ -1,15 +1,16 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: 'production',
   context: path.resolve('./src/'),
   entry: {
-    'sendbird.desk.js': './js/login.js',
-    'sendbird.desk.css': './sass/widget.scss'
+    'sendbird.desk': ['./js/login.js', './sass/widget.scss']
   },
   output: {
     path: path.resolve('./dist'),
-    filename: '[name]'
+    filename: '[name].js',
+    publicPath: '/dist'
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
@@ -28,12 +29,11 @@ module.exports = {
       {
         test: /\.s[ac]ss$/,
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           'css-loader',
           {
             loader: 'sass-loader',
             options: {
-              // Prefer `dart-sass`
               implementation: require('sass')
             }
           }
@@ -41,5 +41,9 @@ module.exports = {
       }
     ]
   },
-  plugins: []
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[name].css'
+    })
+  ]
 };
