@@ -1,15 +1,17 @@
-# Senbird Desk - QuickStart for JavaScript
+# Sendbird Desk for JavaScript sample
+
+![Platform](https://img.shields.io/badge/platform-JAVASCRIPT-orange.svg)
+![Languages](https://img.shields.io/badge/language-JAVASCRIPT-orange.svg)
 
 ## Introduction
 
-SendBird Desk is a chat customer service platform built on SendBird SDK and API.
-Desk JavaScript SDK provides customer-side integration on your own application, so you can easily implement a ticketing system with chat inquiry, inquiries inbox with UI theming.
+Sendbird Desk is a live chat customer support built with Sendbird Chat platform to offer customer engagement and satisfaction. Through its integration, Desk JavaScript SDK enables you to easily customize your ticketing support system with a UI theme, thereby enhancing customers’ chat experience. For example, you can change the inbox - a management tool and storage unit for the agents’ and tickets’ conversations - to fit your color scheme and layout.  
 
-This repo was made to share a barebones quickstart implementation of how to use SendBird Desk.
-It goes through the steps of:
+This readme provides quick and basic installation steps for the Sendbird Desk. 
+The steps are listed as following:
 
-- Connecting to SendBird
-- Connecting to SendBird Desk
+- Connecting to Sendbird
+- Connecting to Sendbird Desk
 - Creating a Ticket
 - Retrieving Closed Tickets
 - Ticket feedback (CSAT)
@@ -26,10 +28,10 @@ It goes through the steps of:
 
 ## Configuration
 
-### 1. Creating a SendBird application.
+### 1. Creating a Sendbird application.
 
 1. Login or Sign-up for an account at dashboard.
-1. Create or select an application on the SendBird Dashboard.
+1. Create or select an application on the Sendbird Dashboard.
 1. Note the Application ID for future reference.
 1. Contact sales to get the Desk menu enabled in the dashboard. Sendbird Desk is available only for free-trial or Enterprise plan.
 
