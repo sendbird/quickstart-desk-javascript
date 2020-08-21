@@ -39,7 +39,7 @@ This section explains the steps you need to take before testing the sample app.
 
 ### Use npm
 
-Using `npm`, you can install and build Desk for JavaScript sample as follows: 
+Using `npm`, you can install and build the sample as follows: 
 
 ```bash
 npm install
