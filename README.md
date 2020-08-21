@@ -37,9 +37,9 @@ Following the previous instructions will allow you to experience the sample app 
 
 If you're familiar with external libraries or SDKs, installing the Desk SDK is an easy and straightforward process. 
 
-### Install and build Desk for JavaScript through npm
+### use npm
 
-Using `npm`, You can install and build Desk for JavaScript as follows: 
+Using `npm`, you can install and build Desk for JavaScript as follows: 
 
 ```bash
 npm install
