@@ -35,7 +35,7 @@ Following the previous instructions will allow you to experience the sample app 
 
 ## Getting started
 
-If you're familiar with external libraries or SDKs, installing the Desk SDK is an easy and straightforward process. 
+This section explains the steps you need to take before testing the sample app.
 
 ### Use npm
 
