@@ -5,48 +5,57 @@
 
 ## Introduction
 
-Sendbird Desk is a live chat customer support built with Sendbird Chat platform to offer customer engagement and satisfaction. Through its integration, Desk JavaScript SDK enables you to easily customize your ticketing support system with a UI theme, thereby enhancing customers’ chat experience. For example, you can change the inbox - a management tool and storage unit for the agents’ and tickets’ conversations - to fit your color scheme and layout.  
+Built with Sendbird Chat platform, Sendbird Desk is a live chat customer support that offers customer satisfaction through enhanced engagement. Through its integration, Desk Android SDK enables you to easily customize your ticketing support system with a UI theme, thereby elevating your overall customers’ experience. For example, you can modify the inbox - a management tool and storage unit for the agents’ and tickets’ conversations - to fit within your color scheme and layout.
 
-This readme provides quick and basic installation steps for the Sendbird Desk. 
-The steps are listed as following:
+<br />
 
-- Connecting to Sendbird
-- Connecting to Sendbird Desk
-- Creating a Ticket
-- Retrieving Closed Tickets
-- Ticket feedback (CSAT)
+## Before getting started
 
-## Prerequisites
+This section provides the pre-installation steps for Sendbird Desk for JavaScript sample app. 
+
+### Requirements
 
 - NodeJS 10.13.x+ along with NPM
 
-## Browser support
+### Browser support
 
 - Modern browsers supporting ES6+ (Chrome, FireFox, Edge, Safari, etc)
 - IE 11+
 - Mobile browsers (Android/iOS)
 
-## Configuration
+### Try the sample app applied with your data 
 
-### 1. Creating a Sendbird application.
+If you would like to customize the sample app for your usage, you can replace the default sample app ID with your ID - which you can obtain by [creating your Sendbird application from the dashboard](https://docs.sendbird.com/javascript/quick_start#3_install_and_configure_the_chat_sdk_4_step_1_create_a_sendbird_application_from_your_dashboard).
 
-1. Login or Sign-up for an account at dashboard.
-1. Create or select an application on the Sendbird Dashboard.
-1. Note the Application ID for future reference.
-1. Contact sales to get the Desk menu enabled in the dashboard. Sendbird Desk is available only for free-trial or Enterprise plan.
+> Note: After creating the Sendbird application, please be sure to contact [sales](https://get.sendbird.com/talk-to-sales.html) to enable the Desk menu onto the dashboard. Currently, Sendbird Desk is available only for free-trial or Enterprise plans.
 
-### 2. Build via npm
+Following the previous instructions will allow you to experience the sample app with your data from the Sendbird application.
 
-```
+<br />
+
+## Getting started
+
+If you're familiar with external libraries or SDKs, installing the Desk SDK is an easy and straightforward process. 
+
+### Install and build Desk for JavaScript through npm
+
+Using `npm`, You can install and build Desk for JavaScript as follows: 
+
+```bash
 npm install
 npm run build
 ```
 
-## Demo
+### Run demo
 
-- npm run demo
-- (in browser) http://127.0.0.1:8888
+Access local server by typing `http://127.0.0.1:8888` on your web browser after executing the command as follows: 
 
-## Reference
+```bash
+npm run demo
+```
 
-Please see the following link for JavaScript Desk SDK Documentation https://github.com/sendbird/SendBird-Desk-SDK-JavaScript
+<br />
+
+## For further reference
+
+Please visit the following link to learn more about Desk SDK for JavaScript: https://github.com/sendbird/SendBird-Desk-SDK-JavaScript
