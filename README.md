@@ -27,7 +27,7 @@ This section shows you the prerequisites you need for testing Sendbird Desk for 
 
 If you would like to customize the sample app for your usage, you can replace the default sample app ID with your ID - which you can obtain by [creating your Sendbird application from the dashboard](https://docs.sendbird.com/javascript/quick_start#3_install_and_configure_the_chat_sdk_4_step_1_create_a_sendbird_application_from_your_dashboard).
 
-> Note: After creating the Sendbird application, please be sure to contact [sales](https://get.sendbird.com/talk-to-sales.html) to enable the **Desk** menu onto the dashboard. Currently, Sendbird Desk is available only for **free-trial** or Enterprise plans.
+> Note: After creating the Sendbird application, please be sure to contact [sales](https://get.sendbird.com/talk-to-sales.html) to enable the **Desk** menu onto the dashboard. Currently, Sendbird Desk is available only for **free-trial** or **Enterprise** plans.
 
 Following the previous instructions will allow you to experience the sample app with your data from the Sendbird application.
 
