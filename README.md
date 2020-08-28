@@ -54,7 +54,7 @@ Access local server by typing `http://127.0.0.1:8888` on your web browser after 
 npm run demo
 ```
 
-<br />
+<br/>
 
 ## For further reference
 
