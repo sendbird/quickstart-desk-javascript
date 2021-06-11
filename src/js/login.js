@@ -117,7 +117,12 @@ export default class Login {
             localStorage.setItem(LOGIN_CACHE_KEY_ADVANCED_WS_HOST, options.wsHost);
             localStorage.setItem(LOGIN_CACHE_KEY_ADVANCED_API_HOST, options.apiHost);
             localStorage.setItem(LOGIN_CACHE_KEY_ADVANCED_DESK_API_HOST, options.deskApiHost);
+          } else {
+            options.wsHost = null;
+            options.apiHost = null;
+            options.deskApiHost = null;
           }
+
           localStorage.setItem(
             LOGIN_CACHE_KEY_ADVANCED,
             advancedActive && options.wsHost && options.apiHost && options.deskApiHost ? 'true' : 'false'
