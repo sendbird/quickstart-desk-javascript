@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "sendbird": "^3.0.127",
-    "sendbird-desk": "^1.0.14"
+    "sendbird": "3.0.160",
+    "sendbird-desk": "1.0.19"
   }
 }
