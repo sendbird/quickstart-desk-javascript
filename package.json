@@ -1,12 +1,13 @@
 {
   "name": "quickstart-desk-javascript",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "SendBird Desk SDK for JavaScript",
   "author": "SendBird",
   "keywords": [],
   "main": "app.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack",
+    "build:prd": "rm -rf node_modules; rm -f package-lock.json; npm i; npm run build",
     "demo": "webpack-dev-server"
   },
   "devDependencies": {
@@ -24,7 +25,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "sendbird": "^3.0.127",
-    "sendbird-desk": "^1.0.14"
+    "sendbird": "3.0.160",
+    "sendbird-desk": "1.0.19"
   }
 }
