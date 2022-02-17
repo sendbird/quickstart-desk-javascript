@@ -16,6 +16,7 @@ const LOGIN_CACHE_KEY_ADVANCED_DESK_API_HOST = 'sb-desk-advanced-deskApihost';
 
 export default class Login {
   constructor() {
+    console.log('Welcome to desk sample!')
     const caching = !!window.localStorage;
     const cachedUser = {
       appId: '',
