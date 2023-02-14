@@ -8,4 +8,4 @@ spec:
   type: library
   lifecycle: production
   owner: dep-client-platform
-  system: sendbird-uikit
+  system: sendbird-desk
