@@ -1,0 +1,11 @@
+kind: Component
+metadata:
+  name: quickstart-desk-javascript
+  description: Quickstart guide for Desk in JavaScript
+  annotations:
+    github.com/project-slug: sendbird/quickstart-desk-javascript
+spec:
+  type: library
+  lifecycle: production
+  owner: dep-client-platform
+  system: sendbird-desk
