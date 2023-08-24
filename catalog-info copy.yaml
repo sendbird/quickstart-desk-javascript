@@ -1,0 +1,12 @@
+kind: Component
+metadata:
+  name: Sample-JS-Desk-Widget
+  description: Desk sample
+  annotations:
+    github.com/project-slug: sendbird/Sample-JS-Desk-Widget
+spec:
+  type: library
+  lifecycle: production
+  owner: dep-client-platform
+  system: sendbird-desk
+ 

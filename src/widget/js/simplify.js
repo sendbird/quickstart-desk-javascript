@@ -1,10 +1,13 @@
+import DOMPurify from 'dompurify';
+
 export const simplify = elem => {
   let _build = elem => {
     /** element control
      */
     elem.html = val => {
       if (val !== undefined) {
-        elem.innerHTML = val;
+        const clean = DOMPurify.sanitize(val);
+        elem.innerHTML = clean;
       }
       return elem.innerHTML;
     };

@@ -1,7 +1,9 @@
-import SendBird from 'sendbird';
 import SendBirdDesk from 'sendbird-desk';
+import moment from 'moment';
+
 import { simplify } from '../simplify.js';
 import { parseDom } from '../domparser.js';
+import { getSb } from '../globalStore.js';
 
 export default class MessageElement {
   constructor(message, streak) {
@@ -25,7 +27,6 @@ export default class MessageElement {
                   <div class='file'></div>
                   <div class='text'></div>
                 </div>
-                <div class='chatbot-card'></div>
                 <div class='rating'>
                   <div class='rating-message'></div>
                   <div class='rating-score'>
@@ -90,8 +91,6 @@ export default class MessageElement {
     this.messageText = simplify(this.messageBox.querySelector('.text'));
     this.createdAt = simplify(this.element.querySelector('.created-at'));
 
-    this.chatbotCard = simplify(this.element.querySelector('.chatbot-card'));
-
     this.confirmEndOfChat = simplify(this.element.querySelector('.confirm-end-of-chat'));
     this.confirmMessage = simplify(this.confirmEndOfChat.querySelector('.message'));
     this.confirm = simplify(this.confirmEndOfChat.querySelector('.confirm'));
@@ -99,10 +98,10 @@ export default class MessageElement {
     this.no = simplify(this.confirm.querySelector('.no'));
 
     this.yes.on('click', () => {
-      SendBirdDesk.Ticket.confirmEndOfChat(this.message, 'yes');
+      this.ticket.instanceConfirmEndOfChat(this.message, 'yes');
     });
     this.no.on('click', () => {
-      SendBirdDesk.Ticket.confirmEndOfChat(this.message, 'no');
+      this.ticket.instanceConfirmEndOfChat(this.message, 'no');
     });
 
     this.rating = simplify(this.element.querySelector('.rating'));
@@ -131,7 +130,7 @@ export default class MessageElement {
     this.ratingSubmit.on('click', () => {
       if (!this.satisfaction.sent) {
         const commentText = this.ratingComment.val();
-        SendBirdDesk.Ticket.submitFeedback(this.message, this.satisfaction.score, commentText, (res, err) => {
+        this.ticket.instanceSubmitFeedback(this.message, this.satisfaction.score, commentText, (res, err) => {
           if (!err) {
             this.satisfaction.comment = commentText;
             this.satisfaction.sent = true;
@@ -147,10 +146,13 @@ export default class MessageElement {
 
     this.render();
   }
+  addTicket(ticket) {
+    this.ticket = ticket;
+  }
   render() {
-    const sb = SendBird.getInstance();
+    const sb = getSb();
     const sender = this.message.sender || {};
-    if (sb.getCurrentUserId() === sender.userId) {
+    if (sb.currentUser.userId === sender.userId) {
       this.messageFile.removeClass('file');
       this.messageFile.addClass('my-file');
       this.element.addClass('-sbd-my-message');
@@ -169,9 +171,6 @@ export default class MessageElement {
           this.satisfaction.comment = messageData.body.customerSatisfactionComment;
           this.satisfaction.sent = true;
         }
-      }
-      if (messageData.type === 'SENDBIRD_DESK_BOT_MESSAGE_FAQ_ANSWERS') {
-        this.chatbotFaqResults = (messageData['results'] && messageData.results) || [];
       }
     } catch (e) {
       // console.log(e);
@@ -228,15 +227,11 @@ export default class MessageElement {
 
       /// message
       if (this.message.isAdminMessage()) {
-        // admin message
         this.messageFile.hide();
         this.media.hide();
         this.messageBox.show();
         this.messageText.html(this.message.message);
-        this.chatbotCard.hide();
       } else if (this.message.isFileMessage()) {
-        // file message
-        this.chatbotCard.hide();
         if (this.message.type.indexOf('image') >= 0) {
           this.messageBox.hide();
           this.video.hide();
@@ -256,40 +251,10 @@ export default class MessageElement {
           });
         }
       } else {
-        // user message or unknown message
         this.messageFile.hide();
         this.media.hide();
         this.messageBox.show();
         this.messageText.html(this.message.message);
-        if (this.chatbotFaqResults && this.chatbotFaqResults.length > 0) {
-          this.chatbotCard.show('flex');
-          this.chatbotFaqResults.forEach(result => {
-            const {
-              question = '',
-              answer = '',
-              url = '',
-              url_label = '',
-              image_url = '',
-            } = result;
-            const faqCard = parseDom(`
-              <div class="faq-card">
-                <img
-                  class="faq-card__profile-image"
-                  src="${image_url || 'img/login-logo.png'}"
-                  alt="${url_label}"
-                ></img>
-                <div class="faq-card__title-question">${question}</div>
-                <p class="faq-card__description">${answer}</p>
-              </div>
-            `);
-            faqCard.onclick = () => {
-              window.open(url);
-            };
-            this.chatbotCard.appendChild(faqCard, this.chatbotCard);
-          });
-        } else {
-          this.chatbotCard.hide();
-        }
       }
 
       if (this.streak) this.createdAt.hide();
@@ -325,7 +290,6 @@ export default class MessageElement {
       this.media.hide();
       this.messageBox.hide();
       this.confirmEndOfChat.hide();
-      this.chatbotCard.hide();
 
       if (this.satisfaction.sent) {
         this.rating.hide();

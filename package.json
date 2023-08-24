@@ -1,31 +1,22 @@
 {
-  "name": "quickstart-desk-javascript",
-  "version": "1.0.6",
+  "name": "sendbird-desk-widget-js",
+  "version": "1.1.0-alpha.0",
   "description": "SendBird Desk SDK for JavaScript",
   "author": "SendBird",
   "keywords": [],
   "main": "app.js",
   "scripts": {
-    "build": "./node_modules/.bin/webpack",
-    "build:prd": "rm -rf node_modules; rm -f package-lock.json; npm i; npm run build",
-    "demo": "webpack-dev-server"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.3",
-    "@babel/preset-env": "^7.10.3",
-    "babel-loader": "^8.1.0",
-    "css-loader": "^3.6.0",
-    "mini-css-extract-plugin": "^0.9.0",
-    "sass": "^1.26.9",
-    "sass-loader": "^8.0.2",
-    "style-loader": "^1.2.1",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "sass": "^1.64.2",
+    "vite": "^4.4.5"
   },
   "dependencies": {
-    "axios": "^0.19.2",
-    "sendbird": "3.0.160",
-    "sendbird-desk": "1.0.19"
+    "dompurify": "^3.0.5",
+    "moment": "^2.29.4",
+    "sendbird-desk": "^1.1.0-alpha-6"
   }
 }
