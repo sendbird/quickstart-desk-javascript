@@ -3,6 +3,7 @@ import { simplify } from '../simplify.js';
 import { parseDom } from '../domparser.js';
 import Spinner from './spinner.js';
 import MessageElement from './message.js';
+import { MessageCollectionInitPolicy, MessageFilter } from '@sendbird/chat/groupChannel';
 
 const MESSAGE_LIMIT = 20;
 const RECENT_MESSAGE_THRESHOLD = 60; // sec
@@ -46,9 +47,8 @@ export default class Dialog {
     this.messageRevision = 0;
 
     this.isLoading = false;
-    this.noMoreMessage = false;
     this.messageList.on('scroll', e => {
-      if (!this.isLoading && !this.noMoreMessage && this.isTop()) {
+      if (!this.isLoading && this.query.hasPrevious && this.isTop()) {
         this.isLoading = true;
         const lastRevision = this.messageRevision;
         this.loadMessage(true, (res, err) => {
@@ -90,9 +90,14 @@ export default class Dialog {
           if (this.ticket.status === SendBirdDesk.Ticket.Status.INITIALIZED) {
             this.ticket.status = SendBirdDesk.Ticket.Status.UNASSIGNED;
           }
-          this.ticket.channel.sendUserMessage(text, (res, err) => {
-            if (!err) {
-              const message = res;
+          const message = {
+            message: text,
+          };
+          this.ticket.channel
+            .sendUserMessage(message)
+            // .onPending((message) => {
+            // })
+            .onSucceeded((message) => {
               if (SendBirdDesk.Message.UrlRegExp.test(message.message)) {
                 message.url = SendBirdDesk.Message.UrlRegExp.exec(message.message)[0];
                 SendBirdDesk.Ticket.getUrlPreview(message.url, (res, err) => {
@@ -118,12 +123,12 @@ export default class Dialog {
                   );
                 });
               }
-              this.appendMessage(res);
+              this.appendMessage(message);
               this.scrollToBottom();
-            } else {
+            })
+            .onFailed((error, message) => {
               this.ticket.status = SendBirdDesk.Ticket.Status.INITIALIZED;
-            }
-          });
+            });
         }
       }
     });
@@ -134,36 +139,63 @@ export default class Dialog {
     });
     this.file.on('change', () => {
       if (this.editable) {
-        let selectedFile = this.file.files[0];
-        this.ticket.channel.sendFileMessage(
-          selectedFile,
-          selectedFile.name,
-          selectedFile.type,
-          selectedFile.size,
-          '',
-          '',
-          [{ maxWidth: 220, maxHeight: 220 }],
-          (res, err) => {
-            if (!err) {
-              if (MessageElement.isVisible(res)) {
-                this.appendMessage(res);
-              }
+        const selectedFile = this.file.files[0];
+        const fileMessage = {
+          file: selectedFile,
+          fileName: selectedFile.name,
+          fileSize: selectedFile.size,
+          mimeType: selectedFile.type,
+          thumbnailSizes: [{ maxWidth: 220, maxHeight: 220 }],
+        };
+        this.ticket.channel.sendFileMessage(fileMessage)
+          .onPending((message) => {
+            // show progress
+          })
+          .onFailed((error, message) => {
+            // hide progress
+            console.log(error);
+          })
+          .onSucceeded((res) => {
+            if (MessageElement.isVisible(res)) {
+              // hide progress
+              this.appendMessage(res);
+              this.scrollToBottom();
             }
-          }
-        );
+          });
       }
     });
     this.file.on('click', e => e.stopPropagation());
   }
   loadMessage(next, callback) {
     if (!this.query || !next) {
-      this.query = this.ticket.channel.createPreviousMessageListQuery();
+      const filter = new MessageFilter();
+      const limit = MESSAGE_LIMIT;
+      const startingPoint = Date.now();
+      const collection = this.ticket.channel.createMessageCollection({
+        filter,
+        limit,
+        startingPoint,
+      });
+
+      collection.initialize(MessageCollectionInitPolicy.CACHE_AND_REPLACE_BY_API)
+        .onCacheResult((err, messages) => {
+          // Messages are retrieved from the local cache.
+          // They might be too outdated or far from the startingPoint.
+        })
+        .onApiResult((err, messages) => {
+          // Messages are retrieved from the Sendbird server through API.
+          // According to MessageCollectionInitPolicy.CACHE_AND_REPLACE_BY_API,
+          // the existing data source needs to be cleared
+          // before adding retrieved messages to the local cache.
+        });
+
+      this.query = collection;
       this.clearMessage();
     }
-    this.query.load(MESSAGE_LIMIT, true, (res, err) => {
-      if (err) throw err;
-      this.noMoreMessage = res.length < MESSAGE_LIMIT;
-      callback(res, err);
+    this.query.loadPrevious().then((res) => {
+      callback(res, false);
+    }).catch((err) => {
+      callback(null, err);
     });
   }
   open(widget) {
@@ -269,6 +301,7 @@ export default class Dialog {
       }
 
       const wm = new MessageElement(message, streak);
+      wm.addTicket(this.ticket);
       this.messageElementList.unshift(wm);
       if (this.messageList.firstChild) {
         this.messageList.insertBefore(wm.element, this.messageList.firstChild);
@@ -290,6 +323,7 @@ export default class Dialog {
 
       const wasBottom = this.isBottom();
       const wm = new MessageElement(message);
+      wm.addTicket(this.ticket);
       this.messageElementList.push(wm);
       this.messageList.appendChild(wm.element);
       if (!this.spinner.isAttached() && wasBottom) {

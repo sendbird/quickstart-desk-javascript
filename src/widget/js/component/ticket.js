@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import { simplify } from '../simplify.js';
 import { parseDom } from '../domparser.js';
 

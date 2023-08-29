@@ -16,7 +16,6 @@ const LOGIN_CACHE_KEY_ADVANCED_DESK_API_HOST = 'sb-desk-advanced-deskApihost';
 
 export default class Login {
   constructor() {
-    console.log('Welcome to desk sample!')
     const caching = !!window.localStorage;
     const cachedUser = {
       appId: '',
@@ -63,11 +62,15 @@ export default class Login {
               </div>
               <div class='form form-advanced'>
                 <span class='input-label'>Custom WebSocket host</span>
-                <input class='wsHost input' placeholder='Custom WebSocket host' value='${cachedAdvanced.wsHost}'></input>
+                <input class='wsHost input' placeholder='Custom WebSocket host' value='${
+                  cachedAdvanced.wsHost
+                }'></input>
                 <span class='input-label'>Custom API host</span>
                 <input class='apiHost input' placeholder='Custom API host' value='${cachedAdvanced.apiHost}'></input>
                 <span class='input-label'>Custom Desk API host</span>
-                <input class='deskApiHost input' placeholder='Custom Desk API host' value='${cachedAdvanced.deskApiHost}'></input>
+                <input class='deskApiHost input' placeholder='Custom Desk API host' value='${
+                  cachedAdvanced.deskApiHost
+                }'></input>
               </div>
             </div>
           </div>
@@ -118,12 +121,7 @@ export default class Login {
             localStorage.setItem(LOGIN_CACHE_KEY_ADVANCED_WS_HOST, options.wsHost);
             localStorage.setItem(LOGIN_CACHE_KEY_ADVANCED_API_HOST, options.apiHost);
             localStorage.setItem(LOGIN_CACHE_KEY_ADVANCED_DESK_API_HOST, options.deskApiHost);
-          } else {
-            options.wsHost = null;
-            options.apiHost = null;
-            options.deskApiHost = null;
           }
-
           localStorage.setItem(
             LOGIN_CACHE_KEY_ADVANCED,
             advancedActive && options.wsHost && options.apiHost && options.deskApiHost ? 'true' : 'false'
